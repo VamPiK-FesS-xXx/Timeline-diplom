@@ -1,0 +1,69 @@
+.layout {
+  background: linear-gradient(216deg, rgba(153, 123, 195, 1) 11%, rgba(245, 159, 121, 1) 51%, rgba(115, 7, 7, 1) 88%);
+  background-size: 400% 400%;
+  animation: gradient 20s ease infinite;
+  transform: translate3d(0, 0, 0);
+  font-family: $inter;
+  min-height: 100dvh;
+  height: 100%;
+  position: relative;
+  color: $colorText;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.main {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 1.875em;
+  position: relative;
+  height: 100%;
+}
+
+// ---- Анимации появления / исчезновения компонентов ----
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+// Появление таймлайна
+.timeline-appear {
+  animation: fadeIn 1s ease forwards;
+}
+
+// Плавное исчезновение текста приветствия
+.success--fadeout {
+  animation: fadeOut 2s ease forwards;
+}
+
+// Появление блока статистики
+.statistic-appear {
+  animation: fadeIn 1s ease forwards;
+}

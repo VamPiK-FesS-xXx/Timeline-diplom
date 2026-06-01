@@ -1,0 +1,46 @@
+.greetings {
+  max-width: 38.75em;
+  margin: 0 auto;
+  &__inner {
+    background-color: $bgc;
+    border-radius: $borderRadius;
+  }
+
+  &__date {
+    display: grid;
+    padding: 2em;
+    gap: 1.25em;
+    align-items: center;
+  }
+
+  &__date-text {
+    color: $colorText;
+    font-size: 1.5em;
+    font-weight: $fontWeightBold;
+    text-align: center;
+    line-height: 1.25em;
+  }
+
+  &__date-input {
+    font-size: 1em;
+    padding: $paddingsForInput;
+    border-radius: 0.9375em;
+    text-align: center;
+    background-color: $bgc;
+    color: $colorText;
+    font-weight: $fontWeightBold;
+  }
+
+  &__date-btn {
+    padding: $paddingsForInput;
+    border-radius: $mostSmallPadding;
+    background-color: $bgc;
+    color: $colorText;
+    font-weight: $fontWeightSemi;
+    font-size: 1em;
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none; /* Для совместимости */
+  }
+}

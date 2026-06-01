@@ -1,0 +1,563 @@
+.modal {
+  &__settings-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 2em;
+  }
+
+  &__settings {
+    margin: 0 auto;
+    max-width: 620px;
+    width: 100%;
+  }
+
+  &__settings-inner {
+  }
+
+  // .modal__settings-wrapper
+  &__settings-wrapper {
+    background-color: $bgc;
+    border-radius: $borderRadius;
+    padding: $paddingsForInput;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    max-height: 85vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+    }
+  }
+
+  // .modal__header-controls
+  &__header-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.3);
+    gap: 1em;
+  }
+
+  // .modal__body-controls
+  &__body-controls {
+    margin-top: 1em;
+  }
+}
+
+// ── Шапка ────────────────────────────────────────────────────
+.header {
+  &__main-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.85em;
+    width: 100%;
+  }
+
+  &__btn-control {
+    background-color: rgba(255, 255, 255, 0.14);
+    color: $colorText;
+    padding: 13px 15px;
+    border-radius: $borderRadius;
+    font-size: 1em;
+    font-weight: $fontWeightSemi;
+    display: flex;
+    align-items: center;
+    gap: 0.45em;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border: 1px solid transparent;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.22);
+    }
+
+    &--active {
+      background-color: rgba(255, 255, 255, 0.22);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+  }
+
+  // Бейдж с количеством активных фильтров
+  &__filters-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 0.7em;
+    font-weight: $fontWeightBold;
+    flex-shrink: 0;
+  }
+
+  &__search {
+    background-color: rgba(255, 255, 255, 0.14);
+    display: inline-flex;
+    border-radius: $borderRadius;
+    padding: 0 0 0 1em;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    transition: background-color 0.2s ease;
+    border: 1px solid transparent;
+
+    &:focus-within {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  &__search-input {
+    background-color: transparent;
+    padding: 13px 0;
+    color: $colorText;
+    font-size: 1em;
+    font-weight: $fontWeightSemi;
+    width: 100%;
+    height: 100%;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+      font-weight: 400;
+    }
+  }
+
+  &__search-btn {
+    background-color: transparent;
+    margin-right: 0.85em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0.3em;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+  }
+
+  &__btn-close {
+    background-color: rgba(255, 255, 255, 0.14);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.26);
+    }
+  }
+}
+
+.btn-flex {
+  cursor: pointer;
+}
+
+// ── Панель фильтров ──────────────────────────────────────────
+.filters {
+  padding-top: 1.1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+
+  // Секция фильтра (заголовок + контент)
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55em;
+
+    &--reset {
+      padding-top: 0.4em;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  &__section-label {
+    font-size: 0.72em;
+    font-weight: $fontWeightSemi;
+    color: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+  }
+
+  // Чекбоксы (период + только с фото)
+  &__checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35em 1.4em;
+  }
+
+  &__checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.55em;
+    cursor: pointer;
+    font-size: 0.93em;
+    color: $colorText;
+    font-weight: $fontWeightSemi;
+    user-select: none;
+
+    &:hover .filters__checkbox-custom {
+      border-color: rgba(255, 255, 255, 0.8);
+    }
+  }
+
+  &__checkbox {
+    display: none;
+
+    &:checked + .filters__checkbox-custom {
+      background-color: rgba(255, 255, 255, 0.85);
+      border-color: rgba(255, 255, 255, 0.85);
+
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__checkbox-custom {
+    width: 17px;
+    height: 17px;
+    border: 2px solid rgba(255, 255, 255, 0.38);
+    border-radius: 4px;
+    flex-shrink: 0;
+    position: relative;
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 1px;
+      left: 4px;
+      width: 5px;
+      height: 9px;
+      border: 2px solid rgba(0, 0, 0, 0.65);
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+  }
+
+  // Чипы годов
+  &__years {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+  }
+
+  &__year-chip {
+    background-color: rgba(255, 255, 255, 0.11);
+    color: $colorText;
+    padding: 0.28em 0.72em;
+    border-radius: 20px;
+    font-size: 0.86em;
+    font-weight: $fontWeightSemi;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    &--active {
+      background-color: rgba(255, 255, 255, 0.26);
+      border-color: rgba(255, 255, 255, 0.55);
+    }
+  }
+
+  // Чипы сортировки
+  &__sort-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+  }
+
+  &__sort-chip {
+    background-color: rgba(255, 255, 255, 0.11);
+    color: $colorText;
+    padding: 0.38em 0.85em;
+    border-radius: $smallerBorderRadius;
+    font-size: 0.86em;
+    font-weight: $fontWeightSemi;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    &--active {
+      background-color: rgba(255, 255, 255, 0.26);
+      border-color: rgba(255, 255, 255, 0.55);
+    }
+  }
+
+  // Выбор диапазона лет
+  &__range-row {
+    display: flex;
+    align-items: center;
+    gap: 0.55em;
+    flex-wrap: wrap;
+  }
+
+  &__range-label {
+    font-size: 0.88em;
+    font-weight: $fontWeightSemi;
+    color: rgba(255, 255, 255, 0.6);
+    white-space: nowrap;
+  }
+
+  &__range-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: rgba(255, 255, 255, 0.11);
+    color: $colorText;
+    padding: 0.38em 2em 0.38em 0.75em;
+    border-radius: $smallerBorderRadius;
+    font-size: 0.88em;
+    font-weight: $fontWeightSemi;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,255,255,0.5)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.55em center;
+
+    option {
+      background-color: #2a2a3a;
+      color: #fff;
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.18);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    &--active {
+      background-color: rgba(255, 255, 255, 0.22);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  &__range-apply {
+    background-color: rgba(255, 255, 255, 0.18);
+    color: $colorText;
+    padding: 0.38em 0.85em;
+    border-radius: $smallerBorderRadius;
+    font-size: 0.88em;
+    font-weight: $fontWeightSemi;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background-color 0.15s ease;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.28);
+    }
+
+    &--disabled {
+      opacity: 0.38;
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.18);
+      }
+    }
+  }
+
+  &__range-clear {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85em;
+    cursor: pointer;
+    padding: 0.2em 0.4em;
+    border-radius: 50%;
+    transition:
+      color 0.15s ease,
+      background-color 0.15s ease;
+
+    &:hover {
+      color: $colorText;
+      background-color: rgba(255, 255, 255, 0.12);
+    }
+  }
+
+  &__range-hint {
+    font-size: 0.78em;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: $fontWeightSemi;
+    margin-top: 0.2em;
+  }
+
+  // Кнопка «сбросить»
+  &__reset-btn {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 0.83em;
+    font-weight: $fontWeightSemi;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(255, 255, 255, 0.28);
+    transition: color 0.15s ease;
+    text-align: left;
+    padding: 0.2em 0;
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+}
+
+// ── Результаты поиска ────────────────────────────────────────
+.search-results {
+  &__count {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8em;
+    font-weight: $fontWeightSemi;
+    margin-bottom: 0.7em;
+  }
+
+  &__empty {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.9em;
+    font-weight: $fontWeightSemi;
+    text-align: center;
+    padding: 1.5em 0;
+  }
+
+  &__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45em;
+  }
+
+  &__more {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.8em;
+    text-align: center;
+    margin-top: 0.65em;
+    font-weight: $fontWeightSemi;
+  }
+}
+
+// ── Карточка воспоминания в поиске ──────────────────────────
+.search-card {
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: $smallerBorderRadius;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  // Миниатюра изображения
+  &__img-wrap {
+    width: 76px;
+    height: 76px;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover &__img {
+    transform: scale(1.04);
+  }
+
+  &__no-img {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  // Текстовая часть карточки
+  &__info {
+    flex: 1;
+    padding: 0.65em 0.9em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.28em;
+    min-width: 0;
+  }
+
+  &__title {
+    color: $colorText;
+    font-size: 0.95em;
+    font-weight: $fontWeightSemi;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__date {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.78em;
+    font-weight: 400;
+  }
+}

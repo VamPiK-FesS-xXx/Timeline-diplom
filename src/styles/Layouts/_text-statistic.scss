@@ -1,0 +1,12 @@
+.statistic {
+  &__inner {
+    gap: 3.125em;
+    display: grid;
+    justify-items: center;
+    padding-bottom: 3.75em;
+  }
+  &__text {
+    font-weight: $fontWeightBold;
+    font-size: 1.5em;
+  }
+}

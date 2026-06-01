@@ -1,0 +1,320 @@
+// Дропдаун — появление
+@keyframes dropdownIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.header {
+    padding-bottom: 3.125em;
+
+    &__inner {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        padding: $standartPadding;
+    }
+
+    // ── Логотип ─────────────────────────────────────────────────
+    &__logo {
+        display: inline-flex;
+        transition:
+            opacity 0.2s ease,
+            filter 0.2s ease;
+
+        &:hover {
+            opacity: 0.8;
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.35));
+        }
+    }
+
+    // ── Навигация ────────────────────────────────────────────────
+    &__menu {
+        border-radius: 50px;
+        background-color: $bgc;
+        padding: 2em 0.5em;
+    }
+
+    &__menu-list {
+        align-items: center;
+        display: flex;
+        gap: 30px;
+    }
+
+    &__menu-link {
+        color: $colorText;
+        font-weight: 600;
+        font-size: 1.3rem;
+        padding: $standartPadding;
+        border-radius: 50px;
+        transition:
+            background-color 0.2s ease,
+            opacity 0.2s ease;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            opacity: 0.85;
+        }
+    }
+
+    // ── Обёртка аватарки + дропдаун ────────────────────────────
+    &__avatar-wrap {
+        justify-self: end;
+        position: relative;
+    }
+
+    // Кнопка-триггер (аватарка + стрелка)
+    &__avatar-trigger {
+        display: flex;
+        align-items: center;
+        gap: 0.45em;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        outline: none;
+        border-radius: 50px;
+
+        &:hover {
+            .header__avatar-img,
+            .header__avatar-letter {
+                box-shadow: 0 0 0 2.5px rgba(255, 255, 255, 0.55);
+            }
+        }
+    }
+
+    // Круглая аватарка-буква
+    &__avatar-letter {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: $bgc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        font-weight: $fontWeightBold;
+        color: $colorText;
+        user-select: none;
+        flex-shrink: 0;
+        transition: box-shadow 0.2s ease;
+    }
+
+    // Фото-аватарка
+    &__avatar-img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
+        transition: box-shadow 0.2s ease;
+    }
+
+    // Серый placeholder (не авторизован)
+    &__avatar-placeholder {
+        flex-shrink: 0;
+        line-height: 0;
+        transition: opacity 0.2s ease;
+
+        &:hover {
+            opacity: 0.75;
+        }
+    }
+
+    // Стрелка-шеврон
+    &__avatar-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $colorText;
+        transition: transform 0.22s ease;
+        flex-shrink: 0;
+
+        &--open {
+            transform: rotate(180deg);
+        }
+
+        svg {
+            display: block;
+        }
+    }
+
+    // ── Выпадающее меню ─────────────────────────────────────────
+    &__dropdown {
+        position: absolute;
+        top: calc(100% + 0.65em);
+        right: 0;
+        min-width: 175px;
+        background-color: $bgc;
+        border-radius: 1em;
+        padding: 0.4em;
+        display: flex;
+        flex-direction: column;
+        gap: 0.1em;
+        z-index: 9999;
+        animation: dropdownIn 0.2s ease;
+    }
+
+    &__dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 0.6em;
+        padding: 0.65em 0.9em;
+        border-radius: 0.65em;
+        font-family: "Inter 28pt", sans-serif;
+        font-size: 0.95em;
+        font-weight: 500;
+        color: $colorText;
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        width: 100%;
+        text-align: left;
+        transition: background-color 0.15s ease;
+
+        svg {
+            flex-shrink: 0;
+            opacity: 0.7;
+            transition: opacity 0.15s ease;
+        }
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+
+            svg {
+                opacity: 1;
+            }
+        }
+
+        &--danger {
+            color: rgba(255, 110, 110, 0.95);
+
+            &:hover {
+                background-color: rgba(220, 60, 60, 0.18);
+            }
+        }
+    }
+
+    &__dropdown-divider {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 0.2em 0.4em;
+    }
+
+    // ── Бургер ──────────────────────────────────────────────────
+    &__toggle {
+        display: none;
+    }
+
+    &__burger-icon {
+        display: none;
+    }
+
+    &__burger-line {
+        display: none;
+    }
+
+    &__burger-menu {
+        display: none;
+    }
+}
+
+.is-current {
+    background-color: hsla(0, 0%, 100%, 0.2);
+    border-radius: 50px;
+}
+
+@media (max-width: 51.313em) {
+    .header {
+        &__menu {
+            display: none;
+        }
+
+        &__avatar-wrap {
+            display: none;
+        }
+
+        //бургер меню
+
+        &__burger-icon {
+            height: 20px;
+            width: 30px;
+            display: inline-block;
+            position: relative;
+
+            &::after,
+            &::before,
+            .header__burger-line {
+                content: "";
+                width: 100%;
+                height: 4px;
+                background-color: #fff;
+                position: absolute;
+                border-radius: 5px;
+                transition: all 0.3s;
+            }
+        }
+
+        &__burger-icon:before {
+            content: "";
+            top: 0;
+        }
+
+        &__burger-icon::after {
+            content: "";
+            bottom: 0;
+        }
+
+        &__burger-line {
+            display: block;
+            top: 8px;
+        }
+
+        #burgerToggle:checked ~ &__burger-icon::after {
+            transform: rotate(45deg);
+            transition: all 0.3s;
+            bottom: 8px;
+        }
+
+        #burgerToggle:checked ~ &__burger-icon::before {
+            transform: rotate(-45deg);
+            transition: all 0.3s;
+            top: 8px;
+        }
+
+        #burgerToggle:checked ~ &__burger-icon > &__burger-line {
+            transform: rotate(-45deg);
+            transition: all 0.3;
+            top: 8px;
+        }
+
+        #burgerToggle:checked ~ &__burger-menu {
+            display: inline-flex;
+            position: absolute;
+        }
+
+        #burgerToggle:checked ~ &__burger-list {
+        }
+
+        &__burger-list {
+            position: fixed;
+            right: 0;
+            left: 0;
+            bottom: 76.4%;
+            background-color: hsla(0, 100%, 97%, 0.212);
+            padding: 1em;
+            z-index: -1;
+            gap: 32px;
+            flex-direction: column;
+            align-items: center;
+            display: flex;
+            transition: all 0.3s;
+        }
+    }
+}

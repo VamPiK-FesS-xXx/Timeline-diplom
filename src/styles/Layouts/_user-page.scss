@@ -1,0 +1,612 @@
+.user {
+    animation: fadeIn 0.6s ease forwards;
+
+    &__inner {
+        // max-width: 1200px;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+    }
+
+    &__info-me {
+        display: flex;
+        align-items: center;
+        gap: 2.5em;
+        background-color: $bgc;
+        border-radius: $borderRadius;
+        padding: 2em;
+    }
+
+    &__info-avatar {
+        width: 306px;
+        height: 306px;
+        border-radius: 50%;
+        position: relative;
+        cursor: pointer;
+        flex-shrink: 0;
+        overflow: hidden;
+    }
+
+    &__avatar-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+    }
+
+    &__avatar-letter {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: $bgc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 6rem;
+        font-weight: $fontWeightBold;
+        color: $colorText;
+        user-select: none;
+    }
+
+    &__avatar-overlay {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background-color: hsla(0, 0%, 0%, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+    }
+
+    &__avatar-overlay-btn {
+        background-color: $bgc;
+        color: $colorText;
+        font-weight: $fontWeightSemi;
+        font-size: 1rem;
+        padding: 0.6em 1.4em;
+        border-radius: $borderRadius;
+        border: none;
+        cursor: pointer;
+        pointer-events: none;
+        white-space: nowrap;
+    }
+
+    &__info-avatar:hover &__avatar-overlay {
+        opacity: 1;
+    }
+
+    &__avatar-input {
+        display: none;
+    }
+
+    &__upload-error {
+        color: #ff6b6b;
+        font-size: 0.85rem;
+        margin-top: 0.5em;
+    }
+
+    &__name-edit {
+        display: flex;
+        align-items: center;
+        gap: 0.75em;
+        flex-wrap: wrap;
+    }
+
+    &__name-input {
+        background-color: $bgc;
+        border: none;
+        border-radius: $smallerBorderRadius;
+        padding: $paddingsForInput;
+        color: $colorText;
+        font-size: 1em;
+        font-weight: $fontWeightSemi;
+        outline: none;
+        width: 14em;
+
+        &.input-error {
+            outline: 2px solid #ff6b6b;
+        }
+    }
+
+    &__name-error {
+        width: 100%;
+        color: #ff6b6b;
+        font-size: 0.8rem;
+    }
+
+    &__info-btn {
+        transition: opacity 0.2s;
+        &:hover {
+            opacity: 0.75;
+        }
+        &:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+    }
+
+    &__info-text {
+        font-weight: $fontWeightSemi;
+        font-size: 1.5em;
+        display: grid;
+        gap: 1em;
+    }
+
+    &__info-name {
+        font-size: 1.4em;
+        font-weight: $fontWeightBold;
+        color: $colorText;
+    }
+
+    &__info-statistics {
+        font-size: 0.9em;
+        font-weight: $fontWeightSemi;
+        color: $colorText;
+        opacity: 0.75;
+    }
+
+    &__info-edit {
+        display: flex;
+        align-items: center;
+        gap: 1.25em;
+        flex-wrap: wrap;
+    }
+
+    &__info-memories {
+        background-color: $bgc;
+        border-radius: $borderRadius;
+        padding: 2em;
+    }
+
+    &__info-date {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 1.5em;
+        border-bottom: 2px solid hsla(0, 0%, 100%, 0.2);
+    }
+
+    // Левая часть заголовка блока года (год + счётчик)
+    &__info-date-left {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25em;
+    }
+
+    &__info-paragraph {
+        font-weight: $fontWeightBold;
+        font-size: 1.7em;
+        color: $colorText;
+    }
+
+    // «— Январь» рядом с годом
+    &__info-month-label {
+        font-weight: $fontWeightSemi;
+        font-size: 1em; // наследует от родительского p
+        opacity: 0.75;
+    }
+
+    // Счётчик воспоминаний под годом
+    &__memories-count {
+        font-size: 0.85em;
+        font-weight: $fontWeightSemi;
+        opacity: 0.55;
+    }
+
+    // Кнопка «назад к месяцам» — правый конец заголовка
+    &__info-back-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: $bgc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        opacity: 0.25;
+        cursor: default;
+        border: none;
+        transition: opacity 0.2s;
+
+        &--active {
+            opacity: 1;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+    }
+
+    &__info-inner {
+        padding-top: 2em;
+    }
+
+    &__no-memories {
+        color: $colorText;
+        opacity: 0.6;
+        font-size: 1.1em;
+        font-weight: $fontWeightSemi;
+        text-align: center;
+        padding: 1.5em 0;
+    }
+}
+.btn-edit {
+    background-color: $bgc;
+    padding: 0.5em 1.2em;
+    border-radius: $borderRadius;
+    color: $colorText;
+    font-weight: $fontWeightSemi;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+    &:hover {
+        opacity: 0.75;
+    }
+    &:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+    }
+}
+.btn-cancel {
+    background-color: transparent;
+    padding: 0.5em 1.2em;
+    border-radius: $borderRadius;
+    color: $colorText;
+    font-weight: $fontWeightSemi;
+    font-size: 0.875rem;
+    opacity: 0.55;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+    &:hover {
+        opacity: 1;
+    }
+    &:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+}
+.btn-back {
+    width: 54px;
+    height: 54px;
+    background-color: $bgc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: opacity 0.2s;
+    &:hover {
+        opacity: 0.75;
+    }
+}
+// ── Табы навигации (Все воспоминания / Избранное) ───────────
+.user__tabs {
+    display: flex;
+    gap: 0.75em;
+    justify-content: center;
+    align-items: center;
+}
+
+.user__tab {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.65em 1.4em;
+    border-radius: $borderRadius;
+    background-color: $bgc;
+    color: $colorText;
+    font-weight: $fontWeightSemi;
+    font-size: 1rem;
+    opacity: 0.55;
+    transition:
+        opacity 0.2s,
+        background-color 0.2s;
+    cursor: pointer;
+    border: none;
+
+    &:hover {
+        opacity: 0.85;
+    }
+
+    &--active {
+        background-color: rgba(255, 255, 255, 0.55);
+        opacity: 1;
+    }
+}
+
+.user__tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.4em;
+    padding: 0.1em 0.45em;
+    border-radius: 2em;
+    background-color: rgba(255, 255, 255, 0.25);
+    font-size: 0.8em;
+    font-weight: $fontWeightBold;
+    line-height: 1.5;
+}
+
+// ── Кнопка избранного на карточке воспоминания ───────────────
+.memory__grid-info-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5em;
+}
+
+.memory__favorite-btn {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.25);
+    color: #fff;
+    transition:
+        background-color 0.2s,
+        transform 0.15s,
+        color 0.2s;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.4);
+        transform: scale(1.12);
+    }
+
+    &--active {
+        color: #ff4d6d;
+        background-color: rgba(255, 255, 255, 0.25);
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.35);
+        }
+    }
+
+    // На светлом фоне карточки
+    &--dark {
+        background-color: rgba(0, 0, 0, 0.12);
+        color: #111;
+
+        &.memory__favorite-btn--active {
+            color: #e0003c;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+}
+
+.memory {
+    &__grid-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 320px;
+        gap: 2em;
+        overflow: hidden;
+        position: relative;
+    }
+
+    // .memory__grid-item
+
+    &__grid-item {
+        border-radius: 15px;
+        background-color: $bgc;
+        display: flex;
+        flex-direction: column;
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+    }
+
+    // .memory__grid-inner
+
+    &__grid-inner {
+        flex: 1; /* займёт всё доступное пространство */
+        display: flex;
+    }
+
+    // .memory__grid-img
+
+    // .memory__img
+
+    &__img {
+        height: 100%;
+    }
+
+    // .memory__grid-info
+
+    &__grid-info {
+        flex: 1;
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+    }
+
+    // .memory__date-paragraph
+
+    &__date-paragraph {
+        font-weight: $fontWeightSemi;
+        font-size: 1.5em;
+    }
+
+    // .memory__title
+
+    &__title {
+        font-weight: 500;
+        font-size: 1.25em;
+    }
+    &__grid-btn {
+        background-color: transparent;
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: $bgc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 40%;
+    }
+}
+// .memory__grid-btn
+
+.btn-prev {
+    left: 0;
+    display: none;
+}
+.btn-next {
+    right: 0;
+}
+
+// ── Новые классы для динамических карточек ──────────────────
+
+// Обёртка: кнопки листания + сетка в одну строку
+.memory__grid-nav {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+
+    .memory__grid-list {
+        flex: 1;
+        min-width: 0; /* не даёт flex-элементу выпирать за пределы */
+    }
+}
+
+// Кнопки листания карточек (отдельные от .btn-prev / .btn-next)
+.btn-prev-cards,
+.btn-next-cards {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: $bgc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+    cursor: pointer;
+    &:hover {
+        opacity: 0.75;
+    }
+    &:disabled {
+        opacity: 0.25;
+        cursor: not-allowed;
+    }
+}
+
+// Счётчик страниц «1 / N»
+.memory__page-counter {
+    text-align: center;
+    font-size: 0.85em;
+    font-weight: $fontWeightSemi;
+    opacity: 0.5;
+    color: $colorText;
+    padding-top: 0.75em;
+}
+
+// Карточки кликабельны
+.memory__grid-item--clickable {
+    cursor: pointer;
+    transition:
+        opacity 0.2s,
+        transform 0.2s;
+
+    &:hover {
+        opacity: 0.88;
+        transform: scale(1.02);
+    }
+}
+
+// Точки навигации
+.memory__dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+    padding-top: 1.25em;
+}
+
+.memory__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition:
+        background-color 0.2s,
+        transform 0.2s;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.6);
+    }
+
+    &--active {
+        background-color: $colorText;
+        transform: scale(1.35);
+    }
+}
+
+// ── Слайдшоу фотографий внутри карточки ─────────────────────
+
+// Фоновая картинка — вписывается в карточку целиком без обрезки
+.memory__card-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: inherit;
+    object-position: center;
+    z-index: 0;
+    animation: cardFadeIn 0.3s ease;
+}
+
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+// Точки слайдшоу внутри карточки (снизу по центру)
+.memory__card-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    z-index: 2;
+}
+
+.memory__card-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.45);
+    transition:
+        background-color 0.2s,
+        transform 0.2s;
+
+    &--active {
+        background-color: #fff;
+        transform: scale(1.4);
+    }
+}

@@ -1,0 +1,1056 @@
+// ---- Админ-панель ----
+
+.admin {
+  display: flex;
+  min-height: 100dvh;
+  animation: fadeIn 0.5s ease forwards;
+
+  // ---- Боковое меню ----
+
+  &__sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background-color: hsla(0, 0%, 0%, 0.25);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    padding: 2em 1em;
+    gap: 0.5em;
+    border-right: 1px solid hsla(0, 0%, 100%, 0.15);
+    position: sticky;
+    top: 0;
+    height: 100dvh;
+  }
+
+  &__logo {
+    font-size: 1.4rem;
+    font-weight: $fontWeightBold;
+    color: $colorText;
+    padding: 0.5em $standartPadding 1.5em;
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0.2);
+    margin-bottom: 0.5em;
+    letter-spacing: 0.02em;
+  }
+
+  &__logo-sub {
+    font-size: 0.65rem;
+    font-weight: 400;
+    opacity: 0.6;
+    display: block;
+    margin-top: 0.25em;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  &__nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    padding: 0.75em $standartPadding;
+    border-radius: $smallerBorderRadius;
+    color: $colorText;
+    font-size: 1rem;
+    font-weight: $fontWeightSemi;
+    width: 100%;
+    text-align: left;
+    transition:
+      background-color 0.2s,
+      opacity 0.2s;
+    opacity: 0.65;
+    background-color: transparent;
+
+    &:hover {
+      background-color: $bgc;
+      opacity: 1;
+    }
+
+    &--active {
+      background-color: $bgc;
+      opacity: 1;
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  &__nav-spacer {
+    flex: 1;
+  }
+
+  &__logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    padding: 0.75em $standartPadding;
+    border-radius: $smallerBorderRadius;
+    color: $colorText;
+    font-size: 1rem;
+    font-weight: $fontWeightSemi;
+    width: 100%;
+    text-align: left;
+    background-color: transparent;
+    opacity: 0.65;
+    transition:
+      background-color 0.2s,
+      opacity 0.2s;
+
+    &:hover {
+      background-color: hsla(0, 100%, 80%, 0.2);
+      opacity: 1;
+    }
+  }
+
+  // ---- Основной контент ----
+
+  &__content {
+    flex: 1;
+    padding: 2em 2.5em;
+    overflow-y: auto;
+  }
+
+  &__header {
+    margin-bottom: 2em;
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: $fontWeightBold;
+    color: $colorText;
+    margin-bottom: 0.25em;
+  }
+
+  &__subtitle {
+    font-size: 0.95rem;
+    color: $colorText;
+    opacity: 0.65;
+    font-weight: $fontWeightSemi;
+  }
+
+  // ---- Карточки статистики ----
+
+  &__stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.25em;
+    margin-bottom: 2.5em;
+  }
+
+  &__stat-card {
+    background-color: $bgc;
+    border-radius: $borderRadius;
+    padding: 1.5em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
+  &__stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: $smallerBorderRadius;
+    background-color: hsla(0, 0%, 100%, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.25em;
+  }
+
+  &__stat-value {
+    font-size: 2rem;
+    font-weight: $fontWeightBold;
+    color: $colorText;
+    line-height: 1;
+  }
+
+  &__stat-label {
+    font-size: 0.85rem;
+    color: $colorText;
+    opacity: 0.65;
+    font-weight: $fontWeightSemi;
+  }
+
+  &__stat-change {
+    font-size: 0.8rem;
+    font-weight: $fontWeightSemi;
+    opacity: 0.75;
+    margin-top: 0.25em;
+
+    &--up {
+      color: #7effa0;
+    }
+
+    &--neutral {
+      color: $colorText;
+      opacity: 0.5;
+    }
+  }
+
+  // ---- Секция с таблицей ----
+
+  &__section {
+    background-color: $bgc;
+    border-radius: $borderRadius;
+    overflow: hidden;
+  }
+
+  &__section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25em 1.5em;
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0.2);
+    gap: 1em;
+    flex-wrap: wrap;
+  }
+
+  &__section-title {
+    font-size: 1.2rem;
+    font-weight: $fontWeightBold;
+    color: $colorText;
+  }
+
+  &__section-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    flex-wrap: wrap;
+  }
+
+  // ---- Поиск ----
+
+  &__search {
+    background-color: hsla(0, 0%, 100%, 0.15);
+    border-radius: $borderRadius;
+    padding: 0.5em 1em;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    min-width: 200px;
+
+    svg {
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
+  }
+
+  &__search-input {
+    background: transparent;
+    border: none;
+    color: $colorText;
+    font-size: 0.9rem;
+    font-weight: $fontWeightSemi;
+    width: 100%;
+    outline: none;
+
+    &::placeholder {
+      color: $colorText;
+      opacity: 0.5;
+    }
+  }
+
+  // ---- Таблица ----
+
+  &__table-wrap {
+    overflow-x: auto;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    color: $colorText;
+    font-size: 0.9rem;
+    min-width: 600px;
+  }
+
+  &__table thead tr {
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0.2);
+  }
+
+  &__table th {
+    padding: 0.85em 1.5em;
+    text-align: left;
+    font-weight: $fontWeightSemi;
+    opacity: 0.65;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  &__table td {
+    padding: 0.85em 1.5em;
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0.08);
+    vertical-align: middle;
+  }
+
+  &__table tbody tr {
+    transition: background-color 0.15s;
+
+    &:last-child td {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: hsla(0, 0%, 100%, 0.06);
+    }
+  }
+
+  // ---- Аватар в таблице ----
+
+  &__table-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__table-avatar-letter {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: hsla(0, 0%, 100%, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: $fontWeightBold;
+    font-size: 0.9rem;
+    color: $colorText;
+    flex-shrink: 0;
+  }
+
+  &__table-user {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+  }
+
+  &__table-name {
+    font-weight: $fontWeightSemi;
+    color: $colorText;
+  }
+
+  &__table-email {
+    font-size: 0.8rem;
+    color: $colorText;
+    opacity: 0.65;
+    margin-top: 0.15em;
+  }
+
+  // ---- Бейджи ----
+
+  &__badge {
+    display: inline-block;
+    padding: 0.25em 0.75em;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: $fontWeightSemi;
+    white-space: nowrap;
+
+    &--admin {
+      background-color: hsla(270, 80%, 70%, 0.35);
+      color: #d4b8ff;
+    }
+
+    &--user {
+      background-color: hsla(0, 0%, 100%, 0.15);
+      color: $colorText;
+      opacity: 0.8;
+    }
+  }
+
+  // ---- Действия ----
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+
+  &__action-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: hsla(0, 0%, 100%, 0.15);
+    color: $colorText;
+    transition:
+      background-color 0.2s,
+      opacity 0.2s;
+    flex-shrink: 0;
+
+    &:hover {
+      background-color: hsla(0, 0%, 100%, 0.3);
+    }
+
+    &--danger {
+      &:hover {
+        background-color: hsla(0, 80%, 60%, 0.35);
+      }
+    }
+
+    &--primary {
+      background-color: hsla(150, 60%, 40%, 0.4);
+      border-radius: 8px !important;
+      padding: 0 0.9em;
+      gap: 0.4em;
+      white-space: nowrap;
+      font-size: 0.9rem;
+      font-weight: $fontWeightSemi;
+
+      &:hover {
+        background-color: hsla(150, 60%, 45%, 0.6);
+      }
+    }
+  }
+
+  // ---- Пустое состояние ----
+
+  &__empty {
+    padding: 3em;
+    text-align: center;
+    color: $colorText;
+    opacity: 0.55;
+    font-size: 1rem;
+    font-weight: $fontWeightSemi;
+  }
+
+  // ---- Лоадер ----
+
+  &__loading {
+    padding: 3em;
+    text-align: center;
+    color: $colorText;
+    opacity: 0.55;
+    font-size: 1rem;
+    font-weight: $fontWeightSemi;
+  }
+
+  // ---- Ошибка ----
+
+  &__error {
+    padding: 1em 1.5em;
+    background-color: hsla(0, 80%, 60%, 0.2);
+    border-radius: $smallerBorderRadius;
+    color: #ff9e9e;
+    font-size: 0.9rem;
+    font-weight: $fontWeightSemi;
+    margin: 1em;
+  }
+
+  // ---- Пагинация ----
+
+  &__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1em 1.5em;
+    gap: 0.5em;
+    border-top: 1px solid hsla(0, 0%, 100%, 0.1);
+  }
+
+  &__page-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: $colorText;
+    font-size: 0.85rem;
+    font-weight: $fontWeightSemi;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: $bgc;
+    }
+
+    &--active {
+      background-color: $bgc;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+  }
+
+  &__page-info {
+    font-size: 0.85rem;
+    color: $colorText;
+    opacity: 0.65;
+    font-weight: $fontWeightSemi;
+    padding: 0 0.5em;
+  }
+}
+
+// ---- Модальное окно редактирования ----
+
+.admin-modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  z-index: 10000;
+  padding: 2em 1.5em;
+  overflow-y: auto;
+  animation: fadeIn 0.2s ease forwards;
+
+  &__box {
+    background: $bgc;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: $borderRadius;
+    padding: 2em;
+    width: 100%;
+    max-width: 460px;
+    border: 1px solid hsla(0, 0%, 100%, 0.12);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+    margin: auto;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0.2);
+  }
+
+  &__title {
+    font-size: 1.2rem;
+    font-weight: $fontWeightBold;
+    color: $colorText;
+  }
+
+  &__close {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: $bgc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $colorText;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.75;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+  }
+
+  &__label {
+    font-size: 0.85rem;
+    font-weight: $fontWeightSemi;
+    color: $colorText;
+    opacity: 0.75;
+  }
+
+  &__input {
+    background-color: $bgc;
+    border: none;
+    border-radius: $smallerBorderRadius;
+    padding: $paddingsForInput;
+    color: $colorText;
+    font-size: 1em;
+    font-weight: $fontWeightSemi;
+    outline: none;
+    width: 100%;
+    transition: background-color 0.2s;
+
+    &:focus {
+      background-color: hsla(0, 0%, 100%, 0.4);
+    }
+
+    &.input-error {
+      outline: 2px solid #ff6b6b;
+    }
+  }
+
+  &__select {
+    background-color: $bgc;
+    border: none;
+    border-radius: $smallerBorderRadius;
+    padding: $paddingsForInput;
+    color: $colorText;
+    font-size: 1em;
+    font-weight: $fontWeightSemi;
+    outline: none;
+    width: 100%;
+    cursor: pointer;
+
+    option {
+      background-color: #4a2d6e;
+      color: $colorText;
+    }
+  }
+
+  &__error {
+    color: #ff9e9e;
+    font-size: 0.85rem;
+  }
+
+  // ---- Сетка фотографий в модалке ----
+
+  &__images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6em;
+    margin-top: 0.25em;
+  }
+
+  &__img-item {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: $smallerBorderRadius;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid transparent;
+    transition:
+      border-color 0.15s,
+      opacity 0.15s;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    &--removed {
+      opacity: 0.35;
+      border-color: #ff6b6b;
+    }
+
+    &--new {
+      border-color: hsla(150, 70%, 60%, 0.6);
+    }
+  }
+
+  &__img-del {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.65);
+    color: #fff;
+    font-size: 0.85rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s;
+
+    &:hover {
+      background-color: rgba(200, 50, 50, 0.85);
+    }
+  }
+
+  &__img-add {
+    width: 80px;
+    height: 80px;
+    border-radius: $smallerBorderRadius;
+    border: 2px dashed hsla(0, 0%, 100%, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3em;
+    color: $colorText;
+    opacity: 0.55;
+    font-size: 0.7rem;
+    font-weight: $fontWeightSemi;
+    transition:
+      opacity 0.2s,
+      border-color 0.2s;
+    flex-shrink: 0;
+    background: transparent;
+
+    &:hover {
+      opacity: 1;
+      border-color: hsla(0, 0%, 100%, 0.6);
+    }
+  }
+
+  // ---- Видео в модалке ----
+
+  &__videos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6em;
+    margin-top: 0.25em;
+  }
+
+  &__vid-item {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: $smallerBorderRadius;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition:
+      border-color 0.15s,
+      opacity 0.15s;
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    &--removed {
+      opacity: 0.35;
+      border-color: #ff6b6b;
+    }
+
+    &--new {
+      border-color: hsla(150, 70%, 60%, 0.6);
+    }
+  }
+
+  &__vid-add {
+    aspect-ratio: 16 / 9;
+    border-radius: $smallerBorderRadius;
+    border: 2px dashed hsla(45, 100%, 65%, 0.35);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35em;
+    color: $colorText;
+    opacity: 0.55;
+    font-size: 0.7rem;
+    font-weight: $fontWeightSemi;
+    background: hsla(45, 100%, 65%, 0.04);
+    transition:
+      opacity 0.2s,
+      border-color 0.2s,
+      background-color 0.2s;
+
+    &:hover {
+      opacity: 1;
+      border-color: hsla(45, 100%, 65%, 0.7);
+      background: hsla(45, 100%, 65%, 0.08);
+    }
+  }
+
+  &__footer {
+    display: flex;
+    gap: 0.75em;
+    margin-top: 1.5em;
+    padding-top: 1em;
+    border-top: 1px solid hsla(0, 0%, 100%, 0.15);
+  }
+
+  &__save-btn {
+    background-color: $bgc;
+    color: $colorText;
+    padding: 0.65em 1.5em;
+    border-radius: $borderRadius;
+    font-size: 1rem;
+    font-weight: $fontWeightSemi;
+    transition: opacity 0.2s;
+    flex: 1;
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  &__cancel-btn {
+    background-color: transparent;
+    color: $colorText;
+    padding: 0.65em 1.5em;
+    border-radius: $borderRadius;
+    font-size: 1rem;
+    font-weight: $fontWeightSemi;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// ---- Диалог подтверждения ----
+
+.admin-confirm {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001;
+  padding: 1.5em;
+  animation: fadeIn 0.15s ease forwards;
+
+  &__box {
+    background: linear-gradient(135deg, hsla(0, 50%, 25%, 0.9) 0%, hsla(270, 40%, 25%, 0.9) 100%);
+    backdrop-filter: blur(20px);
+    border-radius: $borderRadius;
+    padding: 2em;
+    width: 100%;
+    max-width: 380px;
+    border: 1px solid hsla(0, 80%, 70%, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    text-align: center;
+  }
+
+  &__icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background-color: hsla(0, 80%, 60%, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1em;
+  }
+
+  &__title {
+    font-size: 1.2rem;
+    font-weight: $fontWeightBold;
+    color: $colorText;
+    margin-bottom: 0.5em;
+  }
+
+  &__text {
+    font-size: 0.9rem;
+    color: $colorText;
+    opacity: 0.7;
+    font-weight: $fontWeightSemi;
+    margin-bottom: 1.5em;
+    line-height: 1.5;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.75em;
+  }
+
+  &__cancel {
+    flex: 1;
+    padding: 0.65em;
+    border-radius: $borderRadius;
+    background-color: $bgc;
+    color: $colorText;
+    font-weight: $fontWeightSemi;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.75;
+    }
+  }
+
+  &__delete {
+    flex: 1;
+    padding: 0.65em;
+    border-radius: $borderRadius;
+    background-color: hsla(0, 80%, 55%, 0.4);
+    color: $colorText;
+    font-weight: $fontWeightSemi;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: hsla(0, 80%, 55%, 0.6);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// ---- Адаптив ----
+
+@media (max-width: 64em) {
+  .admin {
+    &__sidebar {
+      width: 220px;
+    }
+
+    &__content {
+      padding: 1.5em;
+    }
+  }
+}
+
+@media (max-width: 48em) {
+  .admin {
+    flex-direction: column;
+
+    &__sidebar {
+      width: 100%;
+      height: auto;
+      position: static;
+      flex-direction: row;
+      flex-wrap: wrap;
+      padding: 1em;
+      gap: 0.5em;
+    }
+
+    &__logo {
+      width: 100%;
+      padding: 0.25em 0.5em 0.75em;
+      margin-bottom: 0;
+    }
+
+    &__nav-spacer {
+      display: none;
+    }
+
+    &__nav-btn {
+      flex: 1;
+      min-width: 120px;
+      justify-content: center;
+    }
+
+    &__logout-btn {
+      justify-content: center;
+    }
+
+    &__stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+// ── Редактор текста воспоминания в админке ───────────────────
+.admin-modal__editor-wrap {
+  border-radius: $smallerBorderRadius;
+  overflow: hidden;
+  background-color: hsla(0, 0%, 100%, 0.08);
+
+  // Переиспользуем панель форматирования из обычного модала,
+  // но адаптируем под тёмный фон админки
+  .modal__memory-format {
+    background-color: hsla(0, 0%, 0%, 0.2);
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+    border-radius: 0;
+    padding: 0.5em 0.75em;
+    flex-wrap: wrap;
+    gap: 0.25em;
+  }
+}
+
+.admin-modal__editor {
+  min-height: 140px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 1em 1.25em;
+  color: #fff;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  outline: none;
+  word-break: break-word;
+
+  &:empty::before {
+    content: attr(data-placeholder);
+    color: rgba(255, 255, 255, 0.35);
+    pointer-events: none;
+  }
+
+  ul {
+    padding-left: 1.5em;
+    list-style: disc;
+  }
+}
+
+.admin-modal__editor-loading {
+  padding: 1em 1.25em;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.85rem;
+}
+
+// ── Дропдаун выбора пользователя в CreateMemoryModal ─────────
+.admin-modal__user-drop {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, hsla(270, 50%, 25%, 0.98) 0%, hsla(15, 60%, 25%, 0.98) 100%);
+  border: 1px solid hsla(0, 0%, 100%, 0.15);
+  border-radius: $smallerBorderRadius;
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.admin-modal__user-option {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1em;
+  padding: 0.6em 1em;
+  cursor: pointer;
+  transition: background-color 0.15s;
+
+  &:hover {
+    background-color: hsla(0, 0%, 100%, 0.1);
+  }
+}
+
+.admin-modal__user-option-name {
+  font-size: 0.9rem;
+  font-weight: $fontWeightSemi;
+  color: $colorText;
+}
+
+.admin-modal__user-option-email {
+  font-size: 0.75rem;
+  color: $colorText;
+  opacity: 0.6;
+}
+
+// ── Полноэкранный фон диалога (только в админке) ─────────────
+.confirm-dialog--fullscreen {
+  background: hsla(240, 15%, 6%, 0.96);
+  backdrop-filter: blur(8px);
+}
+
+// ── Бейдж избранного (иконка + счётчик) ─────────────────────
+.admin__favorites-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  color: #ff4d6d;
+  font-weight: 700;
+  font-size: 0.9rem;
+
+  svg {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    stroke: #ff4d6d;
+  }
+}

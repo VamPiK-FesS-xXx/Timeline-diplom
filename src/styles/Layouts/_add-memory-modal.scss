@@ -1,0 +1,712 @@
+.modal {
+    &__memory-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        z-index: 99999;
+        padding: 2em 1em;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        animation: overlayIn 0.2s ease;
+    }
+
+    &__memory {
+        max-width: 700px;
+        width: 100%;
+        margin: auto;
+        animation: modalSlideUp 0.25s ease;
+        will-change: transform;
+    }
+
+    &__memory-date {
+        text-align: center;
+        font-size: 1.2em;
+        font-weight: 500;
+        opacity: 0.7;
+        color: $colorText;
+        font-family: "Inter 28pt", sans-serif;
+    }
+
+    &__memory-inner {
+        background-color: $bgc;
+        border-radius: $borderRadius;
+        padding: 2em;
+        position: relative;
+        font-family: "Inter 28pt", sans-serif;
+        color: $colorText;
+    }
+
+    &__memory-wrapper {
+        display: grid;
+        align-items: center;
+        gap: 1.25em;
+    }
+
+    &__memory-title {
+        text-align: center;
+        font-size: 2.2em;
+        font-weight: $fontWeightBold;
+        color: $colorText;
+        font-family: "Inter 28pt", sans-serif;
+    }
+
+    // ── Название ──────────────────────────────────────
+    &__memory-history {
+        background-color: $bgc;
+        border-radius: $borderRadius;
+    }
+
+    &__memory-short {
+        padding: $standartPadding;
+        display: grid;
+        gap: $standartPadding;
+        width: 100%;
+    }
+
+    &__memory-name {
+        font-weight: 500;
+        font-size: 1.1em;
+        color: $colorText;
+        font-family: "Inter 28pt", sans-serif;
+    }
+
+    &__memory-input {
+        border-radius: $smallerBorderRadius;
+        background-color: $bgc;
+        padding: $paddingsForInput;
+        color: $colorText;
+        font-size: 1em;
+        font-weight: $fontWeightSemi;
+        font-family: "Inter 28pt", sans-serif;
+        width: 100%;
+
+        &::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+    }
+
+    // ── Фотографии ────────────────────────────────────
+    &__memory-select {
+        background-color: $bgc;
+        border-radius: $borderRadius;
+        border: 2px dashed rgba(255, 255, 255, 0.35);
+        min-height: 110px;
+        padding: 1.5em 1em;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6em;
+        transition:
+            border-color 0.2s,
+            background-color 0.2s;
+
+        &:hover {
+            border-color: rgba(255, 255, 255, 0.65);
+            background-color: rgba(255, 255, 255, 0.35);
+        }
+
+        &--filled {
+            cursor: default;
+            border-style: solid;
+            border-color: rgba(255, 255, 255, 0.2);
+            padding: 0.75em;
+            min-height: unset;
+
+            &:hover {
+                background-color: $bgc;
+                border-color: rgba(255, 255, 255, 0.2);
+            }
+        }
+    }
+
+    &__memory-paragraph {
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 1em;
+        font-weight: 500;
+        font-family: "Inter 28pt", sans-serif;
+        text-align: center;
+        line-height: 1.4;
+    }
+
+    &__memory-photos-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.5em;
+        width: 100%;
+    }
+
+    &__memory-photo-item {
+        position: relative;
+        aspect-ratio: 1 / 1;
+        border-radius: 0.75em;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    }
+
+    &__memory-photo-item {
+        .gif-badge {
+            position: absolute;
+            bottom: 4px;
+            left: 4px;
+        }
+    }
+
+    &__memory-photo-remove {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.65);
+        color: #fff;
+        font-size: 16px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: none;
+        padding: 0;
+        transition: background-color 0.15s;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+    }
+
+    &__memory-photo-add {
+        aspect-ratio: 1 / 1;
+        border-radius: 0.75em;
+        border: 2px dashed rgba(255, 255, 255, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition:
+            border-color 0.2s,
+            background-color 0.2s;
+
+        &:hover {
+            border-color: rgba(255, 255, 255, 0.7);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+
+    // ── Видео ─────────────────────────────────────────
+    &__memory-select--video {
+        border-color: rgba(255, 200, 80, 0.35);
+
+        &:hover {
+            border-color: rgba(255, 200, 80, 0.65);
+        }
+
+        &.modal__memory-select--filled {
+            border-color: rgba(255, 200, 80, 0.2);
+            height: 220px;
+
+            &:hover {
+                border-color: rgba(255, 200, 80, 0.2);
+            }
+        }
+    }
+
+    &__memory-videos-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5em;
+        width: 100%;
+        height: 100%;
+        contain: layout;
+    }
+
+    &__memory-video-item {
+        position: relative;
+        border-radius: 0.75em;
+        overflow: hidden;
+        height: 100%;
+        transform: translateZ(0);
+        will-change: transform;
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transform: translateZ(0);
+        }
+    }
+
+    // ── Форматирование + редактор ──────────────────────
+    &__memory-info {
+        background-color: $bgc;
+        border-radius: $borderRadius;
+        overflow: hidden;
+    }
+
+    &__memory-format {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 0.75em 1em;
+        gap: 0.35em;
+        align-items: center;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    // Вертикальный разделитель между группами кнопок
+    &__memory-format-vsep {
+        display: inline-block;
+        width: 1px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        margin: 0 0.15em;
+        flex-shrink: 0;
+    }
+
+    // Горизонтальный разрыв — переносит на новую строку
+    &__memory-format-break {
+        flex-basis: 100%;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.12);
+        margin: 0.3em 0;
+    }
+
+    // Выпадающий список шрифта / размера
+    &__memory-format-select {
+        appearance: none;
+        -webkit-appearance: none;
+        background: rgba(255, 255, 255, 0.07)
+            url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,255,255,0.55)' stroke-width='1.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E")
+            no-repeat right 0.5em center;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 0.4em;
+        color: $colorText;
+        font-family: "Inter 28pt", sans-serif;
+        font-size: 0.8em;
+        padding: 0 1.8em 0 0.6em;
+        height: 28px;
+        cursor: pointer;
+        transition: background-color 0.15s, border-color 0.15s;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        &:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.45);
+        }
+
+        option {
+            background: #1e1e2e;
+            color: #fff;
+        }
+
+        &--size {
+            width: 90px;
+        }
+    }
+
+    // Кнопка заливки текста
+    &__memory-format-color {
+        display: flex;
+        align-items: center;
+        gap: 0.4em;
+        height: 28px;
+        padding: 0 0.65em;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 0.4em;
+        background: rgba(255, 255, 255, 0.07);
+        color: $colorText;
+        font-family: "Inter 28pt", sans-serif;
+        font-size: 0.8em;
+        cursor: pointer;
+        position: relative;
+        transition: background-color 0.15s, border-color 0.15s;
+        user-select: none;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        &-dot {
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            flex-shrink: 0;
+        }
+
+        &-input {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            border: none;
+            padding: 0;
+        }
+    }
+
+    &__memory-text {
+        padding: $paddingsForInput;
+    }
+
+    &__memory-editor {
+        width: 100%;
+        min-height: 180px;
+        border-radius: $smallerBorderRadius;
+        background-color: $bgc;
+        color: $colorText;
+        padding: $standartPadding;
+        font-size: 1.1em;
+        font-family: "Inter 28pt", sans-serif;
+        font-weight: 400;
+        outline: none;
+        line-height: 1.6;
+        cursor: text;
+
+        &:empty::before {
+            content: attr(data-placeholder);
+            color: rgba(255, 255, 255, 0.38);
+            pointer-events: none;
+        }
+
+        ul {
+            padding-left: 1.5em;
+
+            li {
+                list-style: disc !important;
+                margin-left: 0.25em;
+            }
+        }
+
+        ol {
+            padding-left: 1.5em;
+
+            li {
+                list-style: decimal !important;
+                margin-left: 0.25em;
+            }
+        }
+    }
+
+    // ── Ошибка ────────────────────────────────────────
+    &__memory-error {
+        color: #ff6b6b;
+        font-size: 0.9em;
+        font-weight: 600;
+        text-align: center;
+        padding: 0 0.5em;
+    }
+}
+
+// ── Кнопки ────────────────────────────────────────────
+.inner {
+}
+
+.btn-modal {
+    background-color: transparent;
+    border-radius: 0.4em;
+    padding: 0.3em;
+    line-height: 0;
+    transition:
+        background-color 0.15s,
+        opacity 0.15s;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.18);
+    }
+
+    &:active {
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+}
+
+.btn-submit {
+    color: $colorText;
+    background-color: $bgc;
+    font-size: 1.2em;
+    font-family: "Inter 28pt", sans-serif;
+    border-radius: $borderRadius;
+    padding: $standartPadding;
+    font-weight: $fontWeightSemi;
+    transition: opacity 0.2s;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    &:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+    }
+}
+
+.btn-close {
+    position: absolute;
+    top: 1%;
+    right: 2%;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $bgc;
+    transition: opacity 0.2s;
+
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+// ── Строка кнопок «Изменить» + «Удалить» ──────────────────────
+.modal__memory-actions {
+    display: flex;
+    gap: 1em;
+
+    .btn-submit {
+        flex: 1;
+    }
+}
+
+.btn-delete {
+    flex: 1;
+    color: $colorText;
+    font-family: "Inter 28pt", sans-serif;
+    background-color: rgba(220, 60, 60, 0.25);
+    font-size: 1.2em;
+    border-radius: $borderRadius;
+    padding: $standartPadding;
+    font-weight: $fontWeightSemi;
+    transition:
+        background-color 0.2s,
+        opacity 0.2s;
+
+    &:hover {
+        background-color: rgba(220, 60, 60, 0.5);
+    }
+
+    &:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+    }
+}
+
+// ── GIF-бейдж ─────────────────────────────────────────────────
+.gif-badge {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    background-color: rgba(0, 0, 0, 0.65);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    font-family: "Inter 28pt", sans-serif;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    padding: 3px 5px;
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: 2;
+    user-select: none;
+}
+
+// ── Уведомление об успешном действии ──────────────────────────
+.memory-notification {
+    position: fixed;
+    top: 1.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: $borderRadius;
+    color: $colorText;
+    font-family: "Inter 28pt", sans-serif;
+    font-size: 1em;
+    font-weight: $fontWeightSemi;
+    padding: 0.85em 1.75em 0.85em 1.25em;
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    z-index: 999999;
+    white-space: nowrap;
+    pointer-events: none;
+    animation: notificationIn 0.35s ease, notificationOut 0.35s ease 2.65s forwards;
+
+    &__icon {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: rgba(80, 210, 110, 0.88);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    &--delete &__icon {
+        background-color: rgba(220, 80, 80, 0.88);
+    }
+
+    &--update &__icon {
+        background-color: rgba(80, 150, 230, 0.88);
+    }
+}
+
+// ── Диалог подтверждения (несохранённые изменения / удаление) ─
+.confirm-dialog {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100001;
+    background: rgba(0, 0, 0, 0.5);
+    animation: overlayIn 0.18s ease;
+
+    &__box {
+        background: darken(hsla(0, 0%, 20%, 0.95), 0%);
+        background: hsla(0, 0%, 16%, 0.97);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: $borderRadius;
+        padding: 2em 2.25em 1.75em;
+        max-width: 420px;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        animation: modalSlideUp 0.22s ease;
+    }
+
+    &__title {
+        font-family: "Inter 28pt", sans-serif;
+        font-size: 1.25em;
+        font-weight: $fontWeightBold;
+        color: $colorText;
+        text-align: center;
+    }
+
+    &__text {
+        font-family: "Inter 28pt", sans-serif;
+        font-size: 0.9em;
+        color: rgba(255, 255, 255, 0.62);
+        text-align: center;
+        line-height: 1.55;
+    }
+
+    &__actions {
+        display: flex;
+        gap: 0.75em;
+        margin-top: 0.25em;
+    }
+
+    &__btn {
+        flex: 1;
+        font-family: "Inter 28pt", sans-serif;
+        font-size: 0.95em;
+        font-weight: $fontWeightSemi;
+        padding: 0.75em 1em;
+        border-radius: $smallerBorderRadius;
+        color: $colorText;
+        transition: background-color 0.18s, opacity 0.18s;
+        cursor: pointer;
+
+        &--primary {
+            background-color: rgba(255, 255, 255, 0.15);
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.25);
+            }
+        }
+
+        &--danger {
+            background-color: rgba(220, 60, 60, 0.25);
+
+            &:hover {
+                background-color: rgba(220, 60, 60, 0.5);
+            }
+
+            &:disabled {
+                opacity: 0.45;
+                cursor: not-allowed;
+            }
+        }
+
+        &--secondary {
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.08);
+            }
+
+            &:disabled {
+                opacity: 0.45;
+                cursor: not-allowed;
+            }
+        }
+    }
+}
+
+@keyframes notificationIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes notificationOut {
+    from {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-16px);
+    }
+}
+
+// ── Анимации появления модала ──────────────────────────────────
+@keyframes overlayIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}

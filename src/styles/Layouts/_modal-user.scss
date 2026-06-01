@@ -1,0 +1,97 @@
+.auth {
+  max-width: 420px;
+  margin: 0 auto;
+  &__inner {
+    background-color: $bgc;
+    border-radius: $borderRadius;
+    padding: 2em 1.5625em;
+  }
+
+  &__title {
+    color: $colorText;
+    font-size: 1.75em;
+    font-weight: $fontWeightSemi;
+    text-align: center;
+    padding-bottom: 0.75em;
+  }
+
+  &__info {
+    display: grid;
+    gap: 0.75em;
+    align-self: center;
+  }
+
+  &__info-inner {
+    color: $colorText;
+    display: flex;
+    flex-direction: column;
+    gap: $smallerBorderRadius;
+  }
+
+  &__info-input {
+    background-color: $bgc;
+    border-radius: $borderRadius;
+    padding: $paddingsForInput;
+    color: $colorText;
+    font-size: 1em;
+    width: 100%;
+  }
+
+  &__password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .auth__info-input {
+      padding-right: 3em;
+    }
+  }
+
+  &__eye-btn {
+    position: absolute;
+    right: 0.75em;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25em;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__info-btn {
+    background-color: $bgc;
+    color: $colorText;
+    border-radius: $borderRadius;
+    font-size: 1.2em;
+    padding: $mostSmallPadding;
+  }
+
+  &__info-redirect {
+    color: $colorText;
+    text-align: center;
+    font-weight: $fontWeightSemi;
+    font-size: 1.2em;
+  }
+
+  &__error {
+    color: #ff4d4d;
+    font-size: 0.85em;
+    margin-top: 0.25em;
+
+    &--form {
+      text-align: center;
+    }
+  }
+}
+
+.input-error {
+  border: 1px solid #ff4d4d !important;
+}

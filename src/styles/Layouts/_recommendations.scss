@@ -1,0 +1,624 @@
+// ── Подпись уровня в заголовке страницы ──────────────────────
+.rec__level-label {
+	font-weight: $fontWeightSemi;
+	opacity: 0.65;
+}
+
+// ── Выделенный день на таймлайне ──────────────────────────────
+.timeline__component-item--selected {
+	.timeline__item-dot {
+		&::before {
+			border-color: rgba(255, 255, 255, 0.9) !important;
+			box-shadow: 0 0 16px rgba(255, 255, 255, 0.28) !important;
+			transform: scale(1.1) !important;
+			animation: none !important;
+		}
+
+		.svg-hover {
+			filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.45)) !important;
+			transform: scale(1.1) !important;
+		}
+	}
+
+	.timeline__component-text {
+		color: #fff;
+		font-weight: 700;
+	}
+}
+
+// ── Панель событий под таймлайном ─────────────────────────────
+.rec__events {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25em;
+	animation: recPanelIn 0.3s ease;
+	margin-top: 1em;
+
+	&-header {
+		display: flex;
+		align-items: baseline;
+		gap: 0.75em;
+		flex-wrap: wrap;
+	}
+
+	&-date {
+		font-family: 'Inter 28pt', sans-serif;
+		font-size: 1.7em;
+		font-weight: 700;
+		color: $colorText;
+	}
+
+	&-subtitle {
+		font-family: 'Inter 28pt', sans-serif;
+		font-size: 1em;
+		font-weight: 500;
+		color: rgba(255, 255, 255, 0.5);
+	}
+}
+
+// ── Вкладки ───────────────────────────────────────────────────
+.rec__tabs {
+	display: flex;
+	gap: 0.4em;
+	background-color: $bgc;
+	border-radius: $borderRadius;
+	padding: 0.45em;
+	flex-wrap: wrap;
+}
+
+.rec__tab {
+	flex: 1;
+	min-width: max-content;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.45em;
+	padding: 0.6em 1em;
+	border-radius: calc($borderRadius * 0.65);
+	border: none;
+	background: transparent;
+	color: rgba(255, 255, 255, 0.5);
+	font-family: 'Inter 28pt', sans-serif;
+	font-size: 0.88em;
+	font-weight: $fontWeightSemi;
+	cursor: pointer;
+	transition: background-color 0.18s, color 0.18s;
+
+	&:hover {
+		color: $colorText;
+		background-color: rgba(255, 255, 255, 0.09);
+	}
+
+	&--active {
+		background-color: rgba(255, 255, 255, 0.18);
+		color: $colorText;
+	}
+}
+
+.rec__tab-count {
+	font-size: 0.75em;
+	font-weight: $fontWeightBold;
+	background-color: rgba(255, 255, 255, 0.13);
+	border-radius: 50px;
+	padding: 0.1em 0.55em;
+	min-width: 1.6em;
+	text-align: center;
+}
+
+// ── Статусы ───────────────────────────────────────────────────
+.rec__status {
+	background-color: $bgc;
+	border-radius: $borderRadius;
+	padding: 3em 2em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.85em;
+}
+
+.rec__loader {
+	width: 34px;
+	height: 34px;
+	border: 3px solid rgba(255, 255, 255, 0.15);
+	border-top-color: rgba(255, 255, 255, 0.7);
+	border-radius: 50%;
+	animation: recSpin 0.75s linear infinite;
+}
+
+.rec__status-text {
+	font-family: 'Inter 28pt', sans-serif;
+	font-size: 1em;
+	font-weight: $fontWeightSemi;
+	color: rgba(255, 255, 255, 0.5);
+	text-align: center;
+
+	&--error { color: #ff6b6b; }
+}
+
+// ── Подсказка «выберите день» ──────────────────────────────────
+.rec__hint {
+	background-color: $bgc;
+	border-radius: $borderRadius;
+	padding: 2.5em 2em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 1em;
+	animation: recPanelIn 0.3s ease;
+}
+
+.rec__hint-text {
+	font-family: 'Inter 28pt', sans-serif;
+	font-size: 1em;
+	font-weight: $fontWeightSemi;
+	color: rgba(255, 255, 255, 0.45);
+	text-align: center;
+}
+
+// ── Скелетон при загрузке ─────────────────────────────────────
+.rec__skeleton {
+	background-color: $bgc;
+	border-radius: 15px;
+	overflow: hidden;
+	position: relative;
+}
+
+.rec__skeleton-shine {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(
+		90deg,
+		transparent 0%,
+		rgba(255, 255, 255, 0.07) 50%,
+		transparent 100%
+	);
+	background-size: 200% 100%;
+	animation: recShimmer 1.4s linear infinite;
+}
+
+// ── Карточки ──────────────────────────────────────────────────
+.rec__card-img {
+	object-fit: cover !important;
+}
+
+.rec__card-gradient {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(
+		160deg,
+		rgba(0, 0, 0, 0.02) 0%,
+		rgba(0, 0, 0, 0.72) 100%
+	);
+	z-index: 0;
+	pointer-events: none;
+}
+
+.rec__card-title {
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+// ── Карточка фильма ───────────────────────────────────────────
+.rec__movie-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5em;
+}
+
+.rec__movie-rating {
+	font-size: 0.78em;
+	font-weight: $fontWeightBold;
+	background-color: rgba(255, 195, 0, 0.22);
+	color: rgb(255, 210, 60);
+	border-radius: 50px;
+	padding: 0.2em 0.65em;
+	white-space: nowrap;
+}
+
+// ── Рейтинг в модале ─────────────────────────────────────────
+.rec__rating-badge {
+	font-size: 0.88em;
+	font-weight: $fontWeightBold;
+	background-color: rgba(255, 195, 0, 0.18);
+	color: rgb(255, 210, 60);
+	border-radius: 50px;
+	padding: 0.25em 0.8em;
+}
+
+// ── Карточка новости ──────────────────────────────────────────
+.rec__news-section {
+	font-size: 0.78em !important;
+	font-weight: $fontWeightBold !important;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	opacity: 0.65;
+}
+
+// ── Карточка музыки ───────────────────────────────────────────
+.rec__music-artist {
+	font-size: 1em !important;
+	font-weight: $fontWeightSemi !important;
+	opacity: 0.72;
+}
+
+// ── Модал музыки ─────────────────────────────────────────────
+.rec__music-artwork-wrap {
+	max-height: 320px !important;
+}
+
+.rec__music-artwork {
+	object-fit: contain !important;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+// ── Виджет погоды ─────────────────────────────────────────────
+.rec__weather-wrap {
+	background-color: $bgc;
+	border-radius: $borderRadius;
+	padding: 2em;
+	animation: recPanelIn 0.3s ease;
+
+	&--loading,
+	&--empty {
+		padding: 3em 2em;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 0.85em;
+	}
+}
+
+.rec__weather-empty-icon {
+	font-size: 2.4em;
+	line-height: 1;
+}
+
+.rec__weather-empty-text {
+	font-family: 'Inter 28pt', sans-serif;
+	font-size: 1em;
+	font-weight: $fontWeightSemi;
+	color: rgba(255, 255, 255, 0.45);
+	text-align: center;
+}
+
+.rec__weather-card {
+	display: flex;
+	align-items: center;
+	gap: 2.5em;
+}
+
+.rec__weather-left {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5em;
+	flex-shrink: 0;
+}
+
+.rec__weather-icon {
+	font-size: 4.5em;
+	line-height: 1;
+}
+
+.rec__weather-condition {
+	font-family: 'Inter 28pt', sans-serif;
+	font-size: 1em;
+	font-weight: $fontWeightSemi;
+	color: $colorText;
+	text-align: center;
+}
+
+.rec__weather-location {
+	font-family: 'Inter 28pt', sans-serif;
+	font-size: 0.82em;
+	color: rgba(255, 255, 255, 0.45);
+	text-align: center;
+}
+
+.rec__weather-right {
+	display: flex;
+	flex-direction: column;
+	gap: 1.2em;
+}
+
+.rec__weather-temps {
+	display: flex;
+	align-items: baseline;
+	gap: 0.3em;
+}
+
+.rec__weather-max {
+	font-family: 'Inter 28pt', sans-serif;
+	font-size: 3.2em;
+	font-weight: $fontWeightBold;
+	color: $colorText;
+	line-height: 1;
+}
+
+.rec__weather-sep {
+	font-family: 'Inter 28pt', sans-serif;
+	font-size: 2em;
+	color: rgba(255, 255, 255, 0.3);
+	font-weight: 300;
+}
+
+.rec__weather-min {
+	font-family: 'Inter 28pt', sans-serif;
+	font-size: 2em;
+	font-weight: $fontWeightSemi;
+	color: rgba(255, 255, 255, 0.5);
+	line-height: 1;
+}
+
+.rec__weather-details {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4em;
+}
+
+.rec__weather-detail {
+	display: flex;
+	align-items: center;
+	gap: 0.55em;
+	font-family: 'Inter 28pt', sans-serif;
+}
+
+.rec__weather-detail-icon {
+	font-size: 1.1em;
+}
+
+.rec__weather-detail-val {
+	font-size: 0.9em;
+	font-weight: $fontWeightSemi;
+	color: rgba(255, 255, 255, 0.65);
+}
+
+// ── Кастомный аудиоплеер ─────────────────────────────────────
+.rec__player {
+	display: flex;
+	align-items: center;
+	gap: 0.85em;
+	background: rgba(255, 255, 255, 0.07);
+	border-radius: $smallerBorderRadius;
+	padding: 0.75em 1em;
+}
+
+.rec__player-btn {
+	flex-shrink: 0;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.15);
+	border: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	transition:
+		background-color 0.18s,
+		transform 0.15s;
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.28);
+		transform: scale(1.1);
+	}
+}
+
+.rec__player-bar {
+	flex: 1;
+	height: 4px;
+	background: rgba(255, 255, 255, 0.15);
+	border-radius: 2px;
+	position: relative;
+	cursor: pointer;
+
+	&:hover .rec__player-thumb {
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(1);
+	}
+}
+
+.rec__player-fill {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	background: rgba(255, 255, 255, 0.85);
+	border-radius: 2px;
+	pointer-events: none;
+	transition: width 0.1s linear;
+}
+
+.rec__player-thumb {
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%) scale(0.6);
+	width: 13px;
+	height: 13px;
+	background: #fff;
+	border-radius: 50%;
+	pointer-events: none;
+	opacity: 0;
+	transition:
+		opacity 0.15s,
+		transform 0.15s;
+}
+
+.rec__player-time {
+	font-family: 'Inter 28pt', sans-serif;
+	font-size: 0.78em;
+	font-weight: $fontWeightSemi;
+	color: rgba(255, 255, 255, 0.45);
+	white-space: nowrap;
+	min-width: 5.5em;
+	text-align: right;
+	letter-spacing: 0.02em;
+}
+
+// ── Модальное окно (общие стили) ──────────────────────────────
+.hist-modal {
+	max-width: 640px;
+	width: 100%;
+	margin: auto;
+	animation: modalSlideUp 0.25s ease;
+
+	&__inner {
+		background-color: $bgc;
+		border-radius: $borderRadius;
+		padding: 2em;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 1.2em;
+		font-family: 'Inter 28pt', sans-serif;
+		color: $colorText;
+	}
+
+	&__close {
+		position: absolute;
+		top: 1em;
+		right: 1em;
+		width: 34px;
+		height: 34px;
+		border-radius: 50%;
+		background-color: rgba(255, 255, 255, 0.1);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: none;
+		cursor: pointer;
+		transition: background-color 0.18s;
+		line-height: 0;
+
+		&:hover { background-color: rgba(255, 255, 255, 0.22); }
+	}
+
+	&__header {
+		display: flex;
+		align-items: center;
+		gap: 0.75em;
+		flex-wrap: wrap;
+		padding-right: 2.8em;
+	}
+
+	&__badge {
+		display: inline-flex;
+		align-items: center;
+		font-size: 0.72em;
+		font-weight: $fontWeightBold;
+		padding: 0.3em 0.9em;
+		border-radius: 50px;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+
+		&--movie { background: rgba(255, 150, 30, 0.2);  color: rgb(255, 180, 70);  }
+		&--music { background: rgba(30,  200, 180, 0.2); color: rgb(60,  220, 200); }
+		&--news  { background: rgba(80,  150, 255, 0.2); color: rgb(120, 185, 255); }
+	}
+
+	&__year {
+		font-size: 1em;
+		font-weight: $fontWeightSemi;
+		color: rgba(255, 255, 255, 0.55);
+	}
+
+	&__img-wrap {
+		width: 100%;
+		max-height: 280px;
+		border-radius: $smallerBorderRadius;
+		overflow: hidden;
+		line-height: 0;
+	}
+
+	&__img {
+		width: 100%;
+		height: 280px;
+		object-fit: cover;
+		display: block;
+	}
+
+	&__title {
+		font-size: 1.6em;
+		font-weight: $fontWeightBold;
+		color: $colorText;
+		line-height: 1.3;
+	}
+
+	&__desc {
+		font-size: 0.9em;
+		color: rgba(255, 255, 255, 0.5);
+		line-height: 1.5;
+		font-weight: $fontWeightSemi;
+	}
+
+	&__section {
+		display: flex;
+		flex-direction: column;
+		gap: 0.65em;
+		background-color: rgba(255, 255, 255, 0.06);
+		border-radius: $smallerBorderRadius;
+		padding: 1em 1.2em;
+	}
+
+	&__section-title {
+		font-size: 0.72em;
+		font-weight: $fontWeightBold;
+		text-transform: uppercase;
+		letter-spacing: 0.07em;
+		color: rgba(255, 255, 255, 0.4);
+	}
+
+	&__text {
+		font-size: 0.95em;
+		line-height: 1.65;
+		color: rgba(255, 255, 255, 0.88);
+		font-weight: 700;
+	}
+
+	&__wiki-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.55em;
+		align-self: flex-start;
+		padding: 0.7em 1.4em;
+		border-radius: $smallerBorderRadius;
+		background-color: rgba(255, 255, 255, 0.1);
+		color: $colorText;
+		font-family: 'Inter 28pt', sans-serif;
+		font-size: 0.88em;
+		font-weight: $fontWeightSemi;
+		text-decoration: none;
+		transition: background-color 0.18s;
+		border: 1px solid rgba(255, 255, 255, 0.15);
+
+		&:hover { background-color: rgba(255, 255, 255, 0.2); }
+
+		svg { flex-shrink: 0; opacity: 0.8; }
+	}
+}
+
+// ── Анимации ──────────────────────────────────────────────────
+@keyframes recPanelIn {
+	from { opacity: 0; transform: translateY(12px); }
+	to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes recSpin {
+	to { transform: rotate(360deg); }
+}
+
+@keyframes recShimmer {
+	0%   { background-position: -200% 0; }
+	100% { background-position:  200% 0; }
+}
+
+@keyframes modalSlideUp {
+	from { opacity: 0; transform: translateY(24px); }
+	to   { opacity: 1; transform: translateY(0);    }
+}

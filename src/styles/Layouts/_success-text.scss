@@ -1,0 +1,23 @@
+.success {
+    margin: 0 auto;
+    max-width: 660px;
+    &__inner {
+        display: grid;
+        align-items: center;
+        gap: 0.625em;
+        padding-bottom: 3.75em;
+    }
+
+    &__text {
+        text-align: center;
+        font-size: 4em;
+        font-weight: $fontWeightBold;
+    }
+
+    &__arrow {
+        display: flex;
+        justify-content: center;
+    }
+}
+.animated--arrow {
+}
